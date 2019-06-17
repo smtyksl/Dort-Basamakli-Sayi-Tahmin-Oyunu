@@ -21,9 +21,11 @@ Proje Çalıştırılmak için
 	3.1 Kullanıcı oyunu başlatmak için "Oyunu Başlat/Yeniden Başlat" butonunu tıklatıp oyuna başlar.
 	
 	3.2 Kullanıcı yazılımın ürettiği sayıyı tahmin ve "Kullanıcı Tahmin Girişi" tıklatıp bilgisayarın tahmin ettiği sayının eşleşen basamak ve sayı miktarlarını girer, "Kullanıcı İpucunu Gir" tuşunu tıklar.
-	3.3 3.2 deki işlemler ard arda bir taraf btahmini tutturana kadar devam eder.
+	3.3 3.2 deki işlemler ard arda bir taraf tahmini tutturana kadar devam eder.
 	
 	3.4 Kullanıcı işlemi yeniden başlatmak isterse sırasıyla
 		"Bilgisayarın Tahmin Ettiği Sayıyı Sıfırla" ve "Oyunu Başlat/Yeniden Başlat"  basması gerekmektedir.
 	
 	3.5 Herhangi bir tahmin tuttuğu anda oyun bitmiş olur.	
+	
+Önemli Not: Textboxlarda sıayların değişimini yaparken, silmek için "Backspace" tuşu yerine "Delete" tuşunu kulannmanız önerilir.
