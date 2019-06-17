@@ -1,0 +1,9 @@
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\bin\Debug\sayiBulmaca.exe.config
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\bin\Debug\sayiBulmaca.exe
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\bin\Debug\sayiBulmaca.pdb
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\obj\Debug\sayiBulmaca.csprojResolveAssemblyReference.cache
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\obj\Debug\sayiBulmaca.Form1.resources
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\obj\Debug\sayiBulmaca.Properties.Resources.resources
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\obj\Debug\sayiBulmaca.csproj.GenerateResource.Cache
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\obj\Debug\sayiBulmaca.exe
+c:\users\samet\documents\visual studio 2012\Projects\sayiBulmaca\sayiBulmaca\obj\Debug\sayiBulmaca.pdb
