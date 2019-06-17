@@ -1,0 +1,397 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace sayiBulmaca
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                BilgisayarınUrettigiSayi.basamakKontrol[1] = 0;
+            }
+            BilgisayarRastgeleSayiUret();
+            txtBilgisayarTahmini.Text = BilgisayarınUrettigiSayi.sayi.ToString();
+        }
+        #region sayı classı
+        public class Sayi
+        {
+            public int sayi;
+            public int EslesenBasamakMiktari = 0;
+            public int EslesenSayiMiktari = 0;
+            public int[] basamakKontrol = new int[4];
+            public int[] dizi = new int[4];
+        }
+        Sayi BilgisayarınTuttuguSayi = new Sayi();
+        List<int> Karaliste = new List<int>();
+        List<int> BeyazListe = new List<int>();
+        List<Sayi> BilgisayarTahminleriListesi = new List<Sayi>();
+        #endregion
+
+
+
+
+        #region Kullanıcının Tahmini İçin Bilgisayara Rastgele Sayı Üretimi
+
+        #region kullanıcının tahmin etmesi
+        Sayi KullaniciTahmini = new Sayi();
+        int Gecici;
+        public void KullaniciTahmin()
+        {
+            Gecici = KullaniciTahmini.sayi = Convert.ToInt32(txtKullaniciTahmini.Text);
+            for (int i = 0; i < 4; i++)
+            {
+                KullaniciTahmini.dizi[i] = Gecici % 10;
+                Gecici /= 10;
+            }
+            EslesmeBul();
+
+        }
+        public void EslesmeBul()
+        {
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (KullaniciTahmini.dizi[i] == BilgisayarınTuttuguSayi.dizi[i])
+                {
+                    KullaniciTahmini.EslesenBasamakMiktari++;
+                }
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i != j && KullaniciTahmini.dizi[i] == BilgisayarınTuttuguSayi.dizi[j])
+                    {
+                        KullaniciTahmini.EslesenSayiMiktari++;
+                    }
+                }
+            }
+            txtKullaniciArti.Text = "" + KullaniciTahmini.EslesenBasamakMiktari;
+            txtKullaniciEksi.Text = "" + KullaniciTahmini.EslesenSayiMiktari;
+        }
+
+        #endregion
+
+        public void RastgeleSayiUret()
+        {
+            Random uretilenSayi = new Random();
+            int i = 0;
+            while (i < 4)
+            {
+                if (i == 0)
+                {
+                    BilgisayarınTuttuguSayi.dizi[i] = uretilenSayi.Next(10);
+                    i++;
+                }
+                else
+                {
+                    int a;
+                    a = uretilenSayi.Next(10);
+                    if (a == 0 && i == 3)
+                    {
+                        a += 1;
+                    }
+                    if (Bul(a, i, BilgisayarınTuttuguSayi.dizi) == false)
+                    {
+                        BilgisayarınTuttuguSayi.dizi[i] = a;
+                        i++;
+                    }
+                }
+
+            }
+            BilgisayarınTuttuguSayi.sayi = BilgisayarınTuttuguSayi.dizi[0] + BilgisayarınTuttuguSayi.dizi[1] * 10 + BilgisayarınTuttuguSayi.dizi[2] * 100 + BilgisayarınTuttuguSayi.dizi[3] * 1000;
+        }
+
+        public Boolean Bul(int aranan, int oncekiBasamakSayisi,int[] dizi)
+        {
+            for (int i = 0; i < oncekiBasamakSayisi+1; i++)
+            {
+                if (aranan == dizi[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
+
+        #region bilgisayar tahmini
+
+        Sayi BilgisayarınUrettigiSayi = new Sayi();
+        public void BilgisayarRastgeleSayiUret()
+        {
+            Random uretilenSayi = new Random();
+            int i = 0;
+            while (i < 4)
+            {
+                if (i == 0)
+                {
+                    BilgisayarınUrettigiSayi.dizi[i] = uretilenSayi.Next(10);
+                    i++;
+                }
+                else
+                {
+                    int a;
+                    a = uretilenSayi.Next(10);
+                    if (a == 0 && i == 3)
+                    {
+                        a += 1;
+                    }
+                    if (BasamaklariKontrolEt(a, i) == false)// değişcek
+                    {
+                        BilgisayarınUrettigiSayi.dizi[i] = a;
+                        i++;
+                    }
+                }
+
+            }
+            BilgisayarınUrettigiSayi.sayi = BilgisayarınUrettigiSayi.dizi[0] + BilgisayarınUrettigiSayi.dizi[1] * 10 + BilgisayarınUrettigiSayi.dizi[2] * 100 + BilgisayarınUrettigiSayi.dizi[3] * 1000;
+
+        }
+        public Boolean BasamaklariKontrolEt(int aranan, int oncekiBasamakSayisi)
+        {
+            for (int i = 0; i < oncekiBasamakSayisi; i++)
+            {
+                if (aranan == BilgisayarınUrettigiSayi.dizi[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+
+
+        #endregion
+
+
+        #region  tüm basamakların kontrolü
+
+        public Boolean TumBasamaklariKontrolEt(int aranan)// üretilecek basamak sayısı herhangi bir basamakta var mı kontrolü
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (aranan == BilgisayarınUrettigiSayi.dizi[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
+        private void btnRastgeleSayiUret_Click(object sender, EventArgs e)
+        {
+            RastgeleSayiUret();
+            label5.Text = BilgisayarınTuttuguSayi.sayi.ToString();
+        }
+
+        private void btnKullaniciTahmin_Click(object sender, EventArgs e)
+        {
+            KullaniciTahmini.EslesenBasamakMiktari = 0;
+            KullaniciTahmini.EslesenSayiMiktari = 0;
+            KullaniciTahmin();
+
+
+            if (BilgisayarTahminleriListesi.Count < 1)
+            {
+                BilgisayarRastgeleSayiUret();
+                BilgisayarTahminleriListesi.Add(BilgisayarınUrettigiSayi);
+                txtBilgisayarTahmini.Text = BilgisayarınUrettigiSayi.sayi.ToString();
+            }
+            else
+            {
+
+            }
+            if (KullaniciTahmini.EslesenBasamakMiktari == 4)
+            {
+                MessageBox.Show("Tebrikler Kullanıcı Kazandı");
+            }
+        }
+        int Suaneslesmebasamak, Suaneslesmesayi;
+
+        int counter = 0;
+
+        private void btnBilgisayaraTahminYaptir_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Karaliste.Count; i++)
+            {
+                textBox1.Text += "," + Karaliste[i];
+            }
+            for (int i = 0; i < BeyazListe.Count; i++)
+            {
+                textBox2.Text += "," + BeyazListe[i];
+            }
+            if (counter == 0)
+            {
+                BilgisayarınUrettigiSayi.EslesenBasamakMiktari = Convert.ToInt32(txtBilgisayarArti.Text);
+                BilgisayarınUrettigiSayi.EslesenSayiMiktari = Convert.ToInt32(txtBilgisayarEksi.Text);
+                counter++;
+                //form load olduğunda bilgisayar ilk tahmini yaptı burda tahminin + ve - değerleri girildi
+                ipucunaGoreYeniSayiUret();
+            }
+            else
+            {
+
+                Suaneslesmebasamak = Convert.ToInt32(txtBilgisayarArti.Text);
+                Suaneslesmesayi = Convert.ToInt32(txtBilgisayarEksi.Text);
+
+                if (Suaneslesmebasamak == BilgisayarınUrettigiSayi.EslesenBasamakMiktari && Suaneslesmesayi < BilgisayarınUrettigiSayi.EslesenSayiMiktari)//komtrol edilecek
+                {
+                    // eğer yeni üretilen basamaktaki değer artı değişmmemiş ,eksi miktarını azalmışsa üretilen sayı karalisteye atılıyor
+                    ListeyeElemanEkle(BilgisayarınUrettigiSayi.dizi[basamak], Karaliste);
+                    ListeyeElemanEkle(degisenSayi, BeyazListe);
+
+                }
+                if (Suaneslesmebasamak == BilgisayarınUrettigiSayi.EslesenBasamakMiktari && Suaneslesmesayi > BilgisayarınUrettigiSayi.EslesenSayiMiktari)//komtrol edilecek
+                {
+                    // eğer yeni üretilen basamaktaki değer artı değişmmemiş ,eksi miktarını artmışsa üretilen sayı beyaz listeye atılıyor
+                    /**
+                     * değişen sayı karalisteye atılıyor
+                     */
+                    ListeyeElemanEkle(BilgisayarınUrettigiSayi.dizi[basamak], BeyazListe);
+                    ListeyeElemanEkle(degisenSayi, Karaliste);
+                }
+                if (Suaneslesmebasamak > BilgisayarınUrettigiSayi.EslesenBasamakMiktari && Suaneslesmesayi == BilgisayarınUrettigiSayi.EslesenSayiMiktari)//komtrol edilecek
+                {
+                    // eğer yeni üretilen basamaktaki değer artı artmış ,eksi miktarını sabitse üretilen sayı karalisteye atılıyor
+                    /* üretilen sayı beyaz listeye atılır
+                     * değişensayı karalisteye atılır
+                     * basamak değişkeni bir artar
+                     */
+                    ListeyeElemanEkle(BilgisayarınUrettigiSayi.dizi[basamak], BeyazListe);
+                    Karaliste.Add(degisenSayi); ListeyeElemanEkle(degisenSayi, Karaliste);
+                    basamak++;
+                }
+                if (Suaneslesmebasamak < BilgisayarınUrettigiSayi.EslesenBasamakMiktari && Suaneslesmesayi == BilgisayarınUrettigiSayi.EslesenSayiMiktari)//komtrol edilecek
+                {
+                    // eğer yeni üretilen basamaktaki değer artı azalmış ,eksi miktarını sabitse 
+                    /* üretilen sayı kara listeye atılır
+                     * değişensayı beyazlisteye atılır
+                     */
+                    ListeyeElemanEkle(BilgisayarınUrettigiSayi.dizi[basamak], Karaliste);
+                    ListeyeElemanEkle(degisenSayi, BeyazListe);
+                }
+                if (Suaneslesmebasamak < BilgisayarınUrettigiSayi.EslesenBasamakMiktari && Suaneslesmesayi > BilgisayarınUrettigiSayi.EslesenSayiMiktari)//komtrol edilecek
+                {
+                    // eğer yeni üretilen basamaktaki değer artı azalmış ,eksi miktarını artmış 
+                    /* üretilen sayı beyaz listeye atılır
+                     * değişensayı beyazlisteye atılır
+                     */
+                    ListeyeElemanEkle(BilgisayarınUrettigiSayi.dizi[basamak], BeyazListe);
+                    ListeyeElemanEkle(degisenSayi, BeyazListe);
+                }
+                if (Suaneslesmebasamak > BilgisayarınUrettigiSayi.EslesenBasamakMiktari && Suaneslesmesayi < BilgisayarınUrettigiSayi.EslesenSayiMiktari)//komtrol edilecek
+                {
+                    // eğer yeni üretilen basamaktaki değer artı artmış ,eksi azalmış  
+                    /* üretilen sayı beyaz listeye atılır
+                     * değişensayı beyazlisteye atılır
+                     * basamak değişkeni bir artar
+                     */
+                    ListeyeElemanEkle(BilgisayarınUrettigiSayi.dizi[basamak], BeyazListe);
+                    ListeyeElemanEkle(degisenSayi, BeyazListe);
+                    basamak++;
+                }
+
+                BilgisayarınUrettigiSayi.EslesenBasamakMiktari = Suaneslesmebasamak;
+                BilgisayarınUrettigiSayi.EslesenSayiMiktari = Suaneslesmesayi;
+
+                ipucunaGoreYeniSayiUret();
+            }
+
+            BilgisayarınUrettigiSayi.sayi = BilgisayarınUrettigiSayi.dizi[0] + BilgisayarınUrettigiSayi.dizi[1] * 10 + BilgisayarınUrettigiSayi.dizi[2] * 100 + BilgisayarınUrettigiSayi.dizi[3] * 1000;
+
+
+
+
+            txtBilgisayarTahmini.Text = BilgisayarınUrettigiSayi.sayi.ToString();
+            if (Suaneslesmebasamak == 4)
+            {
+                MessageBox.Show("Üzgünüz Bilgisayar Kazandı");
+            }
+            else
+            {
+            }
+            // 
+        }
+
+        int basamak = 0;
+        public Boolean ListeKontrolEt(int aranan, List<int> liste)
+        {
+            foreach (var item in liste)
+            {
+                if (item == aranan)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+
+        }
+        int degisenSayi;
+        public void ipucunaGoreYeniSayiUret()
+        {
+            int uretilenSayi = 0;
+            Random rnd = new Random();
+            while (true)
+            {
+                uretilenSayi = rnd.Next(10);
+                if (basamak == 3 && uretilenSayi == 0)//binler basmağının 0 olmaması
+                {
+                }
+                else
+                {
+
+                    if (ListeKontrolEt(uretilenSayi, Karaliste) == false  && Bul(uretilenSayi,basamak,BilgisayarınUrettigiSayi.dizi)==false && uretilenSayi!=BilgisayarınUrettigiSayi.dizi[basamak])
+                    {
+                        degisenSayi = BilgisayarınUrettigiSayi.dizi[basamak];
+                        BilgisayarınUrettigiSayi.dizi[basamak] = uretilenSayi;
+                        break;
+                    }
+
+
+                }
+            }
+        }
+        public void BasamakBasamakArtiEksiKontrolEt(int eksiSayi, int artiBulunanBasamakSayisi)
+        {
+            int tmp;
+            if (eksiSayi == 2 && artiBulunanBasamakSayisi == 2)
+            {
+                if (BilgisayarınUrettigiSayi.dizi[3] == BilgisayarınUrettigiSayi.dizi[2])
+                {
+
+                }
+                tmp = BilgisayarınUrettigiSayi.dizi[2];
+                BilgisayarınUrettigiSayi.dizi[2] = BilgisayarınUrettigiSayi.dizi[3];
+                BilgisayarınUrettigiSayi.dizi[3] = tmp;
+            }
+            if (eksiSayi == 3 && artiBulunanBasamakSayisi == 1)
+            {
+
+            }
+
+
+        }
+        public void ListeyeElemanEkle(int eklenecek, List<int> liste)
+        {
+            if (ListeKontrolEt(eklenecek, liste) == false)
+            {
+                liste.Add(eklenecek);
+            }
+        }
+    }
+}
