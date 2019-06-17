@@ -28,4 +28,4 @@ Proje Çalıştırılmak için
 	
 	3.5 Herhangi bir tahmin tuttuğu anda oyun bitmiş olur.	
 	
-Önemli Not: Textboxlarda sıayların değişimini yaparken, silmek için "Backspace" tuşu yerine "Delete" tuşunu kulannmanız önerilir.
+Önemli Not: Textboxlarda sayıların değişimini yaparken, silmek için "Backspace" tuşu yerine "Delete" tuşunu kulannmanız önerilir.
