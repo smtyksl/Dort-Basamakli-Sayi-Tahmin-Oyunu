@@ -332,7 +332,7 @@ namespace sayiBulmaca
                 sayac++;
                 if (sayac > 1000)
                 {
-                    MessageBox.Show("Olası bir hata durumu: \n\n\n1) Kullanıcı tarafından girilen ipucu neredeyse hep birbirinin aynısıdır  ya da sürekli yanlış ipucu girildiğinden yazılım üretecek sayı bulamamıştır ve yazılım sonsuz döngüye girer\n\n2) Kullanıcı İpucu girerken yanlış ipucu girmiştir\n\n\n Üstteki hatalardan kaynaklı yazılım üretecek sayı kalmamıştır çünkü üretilen sayılar yazılım içinde bulunan üretilmemesi gereken sayıların içine girmiştir.");
+                    MessageBox.Show("Olası bir hata durumu: \n\n\n1) Kullanıcı tarafından girilen ipucu neredeyse hep birbirinin aynısıdır  ya da sürekli yanlış ipucu girildiğinden yazılım üretecek sayı bulamamıştır ve yazılım sonsuz döngüye girer\n\n2) Kullanıcı İpucu girerken yanlış ipucu girmiştir\n\n\n Üstteki hatalardan kaynaklı yazılım üretecek sayı kalmamıştır çünkü üretilen sayılar yazılım içinde bulunan üretilmemesi gereken sayıların içine girmiştir.\n\n\n Lüften \"Bilgisayarın Tahmin Ettiği Sayıyı Sıfırla\" tuşuna basıp ardından \"Oyunu Başlat/Yeniden Başlat\" tuşuna basınız ya da oyunu kapatınız.");
                     break;
                 }
                 uretilenSayi = rnd.Next(10); // random.next metodu ile  0 dan 9 a kadar bir sayı üretilmiştir.
